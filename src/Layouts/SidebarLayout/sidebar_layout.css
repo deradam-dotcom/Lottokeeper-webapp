@@ -1,0 +1,121 @@
+.sidebar-layout {
+  width: 100vw;
+  height:100%;
+  display: flex;
+  flex-direction: row;
+}
+
+.user-sidebar {
+  flex-grow: 10;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  margin: 0 1rem;
+}
+
+
+.main{
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+  flex-grow: 90;
+  overflow: auto;
+  margin-top: 25px;
+}
+
+
+.data-card{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 50%;
+  background: transparent;
+  margin-bottom: 1.5rem;
+  padding: 30px 40px;
+  backdrop-filter:blur(20px);
+  border: 2px solid rgba(255,255,255, .2);
+  color: #fff;
+  border-radius: 10px;
+}
+
+.user-balance {
+  width:100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.user-total-hits{
+  width:100%;
+  display: flex;
+  color:#fff;
+  justify-content: space-between;
+}
+
+.user-prize {
+  width:100%;
+  display: flex;
+  color:rgb(107, 209, 107);
+  justify-content: space-between;
+}
+
+.user-loss {
+  width:100%;
+  display: flex;
+  color:rgb(237, 120, 120);
+  justify-content: space-between;
+}
+
+span{
+  font-size:18px;
+  font-weight: bold;
+}
+
+.number-form input{
+  margin-bottom:10px;
+}
+
+.draw-container{
+  display: none;
+}
+
+.number-generator{
+  padding:0 40px;
+}
+
+.numbers-container{
+  display: flex;
+  justify-content: space-around;
+  margin:20px 0;
+}
+
+.numbers-container > span{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px; 
+  height: 40px; 
+  border-radius: 50%; 
+  color: #fff;
+  border: 2px solid rgb(245, 123, 123);
+}
+
+@media screen and (max-width: 1192px) {
+.sidebar-layout {
+  flex-direction: column;
+  flex-wrap: wrap;
+  overflow: auto;
+}
+
+.data-card{
+  height: 100%;
+}
+
+.draw-container{
+  display: block;
+  
+}
+}
