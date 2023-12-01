@@ -3,7 +3,7 @@
 1. Setup
 
 ```
-Run npm ci or npm i
+npm ci or npm i
 ```
 
 2. Start
