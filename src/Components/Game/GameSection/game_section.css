@@ -2,7 +2,7 @@
   display: grid;
   grid-template-columns: repeat(4, 1fr); /* Adjust based on your preference */
   gap: 5px;
-  height:fit-content
+  height:fit-content;
 }
 
 .game-slip {
@@ -72,7 +72,8 @@ bottom:15px;
 
 .sort-button{
 position:absolute;
-bottom:70px;
+
+bottom:3%;
 }
 
 .draw-section{

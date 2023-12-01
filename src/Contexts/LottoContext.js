@@ -27,6 +27,32 @@ export const LottoProvider = ({ children }) => {
 		winningNumbers: [],
 	});
 
+	// Add these set methods
+	const setPlayerState = (newPlayerState) => {
+		setPlayer({
+			name: newPlayerState.name ?? '',
+			balance: newPlayerState.balance ?? 0,
+			prize: newPlayerState.prize ?? 0,
+			gameSlips: newPlayerState.gameSlips ?? [],
+			awardedSlips: newPlayerState.awardedSlips ?? [],
+			winningSlipsCount: newPlayerState.winningSlipsCount ?? 0,
+			winningNumbers: newPlayerState.winningNumbers ?? [],
+		});
+	};
+
+	const setOperatorState = (newOperatorState) => {
+		setOperator({
+			name: newOperatorState.name ?? '',
+			balance: newOperatorState.balance ?? 0,
+			prize: newOperatorState.prize ?? 0,
+			loss: newOperatorState.loss ?? 0,
+			gameSlips: newOperatorState.gameSlips ?? [],
+			awardedSlips: newOperatorState.awardedSlips ?? [],
+			winningSlipsCount: newOperatorState.winningSlipsCount ?? 0,
+			winningNumbers: newOperatorState.winningNumbers ?? [],
+		});
+	};
+
 	const updatePlayerName = (userName) => {
 		if (player.name === '') {
 			setPlayer((prevPlayer) => ({
@@ -76,6 +102,7 @@ export const LottoProvider = ({ children }) => {
 		setPlayer((prevPlayer) => {
 			return {
 				...prevPlayer,
+				balance: prevPlayer.balance - 200,
 				gameSlips: [...prevPlayer.gameSlips, slip],
 			};
 		});
@@ -91,12 +118,12 @@ export const LottoProvider = ({ children }) => {
 	};
 
 	const awardOperatorCredits = (operator, winningNumbers) => {
-		let totalAward = 0;
 		let winningSlipsCount = 0;
 		// Initialize counters for each match category
 		const updatedSlips = operator.gameSlips.map((slip) => {
 			const matches = checkMatches(slip, winningNumbers);
 			let isWinner = slip.isWinner;
+			let totalAward = slip.totalAward || 0;
 			if (matches >= 2 && matches <= 5 && !isWinner) {
 				winningSlipsCount += 1;
 				isWinner = true;
@@ -118,14 +145,12 @@ export const LottoProvider = ({ children }) => {
 					break;
 			}
 
-			const updatedSlip = {
+			return {
 				...slip,
 				matches: isWinner ? matches : 0,
 				totalAward: isWinner ? totalAward : 0,
 				isWinner: isWinner,
 			};
-
-			return updatedSlip;
 		});
 		// Add only the new winning slips to the awardedSlips array in player state
 		const newWinningSlips = updatedSlips.filter(
@@ -137,6 +162,10 @@ export const LottoProvider = ({ children }) => {
 			const newWinningSlipIds = newWinningSlips.map((slip) => slip.id);
 			const remainingGameSlips = prevOperator.gameSlips.filter(
 				(slip) => !newWinningSlipIds.includes(slip.id)
+			);
+			const totalAward = newWinningSlips.reduce(
+				(acc, slip) => acc + slip.totalAward,
+				0
 			);
 
 			return {
@@ -151,12 +180,12 @@ export const LottoProvider = ({ children }) => {
 	};
 
 	const awardPlayerCredits = (player, winningNumbers) => {
-		let totalAward = 0;
 		let winningSlipsCount = 0;
 		// Initialize counters for each match category
 		const updatedSlips = player.gameSlips.map((slip) => {
 			const matches = checkMatches(slip, winningNumbers);
 			let isWinner = slip.isWinner;
+			let totalAward = slip.totalAward || 0;
 			if (matches >= 2 && matches <= 5 && !isWinner) {
 				winningSlipsCount += 1;
 				isWinner = true;
@@ -177,20 +206,34 @@ export const LottoProvider = ({ children }) => {
 				default:
 					break;
 			}
-			const updatedSlip = {
+
+			return {
 				...slip,
 				matches: isWinner ? matches : 0,
 				totalAward: isWinner ? totalAward : 0,
 				isWinner: isWinner,
 			};
-
-			return updatedSlip;
 		});
 		// Add only the new winning slips to the awardedSlips array in player state
 		const newWinningSlips = updatedSlips.filter(
 			(slip) => slip.isWinner && !player.awardedSlips.includes(slip)
 		);
+		const totalAward = newWinningSlips.reduce(
+			(acc, slip) => acc + slip.totalAward,
+			0
+		);
 		// Update player balance with the total award
+		setOperator((prevOperator) => {
+			const updatedBalance = prevOperator.balance - totalAward;
+			const updatedLoss = prevOperator.loss + totalAward;
+
+			return {
+				...prevOperator,
+				balance: updatedBalance,
+				loss: updatedLoss,
+			};
+		});
+
 		setPlayer((prevPlayer) => {
 			// Filter out only the slips that haven't won
 			const newWinningSlipIds = newWinningSlips.map((slip) => slip.id);
@@ -207,12 +250,6 @@ export const LottoProvider = ({ children }) => {
 				winningSlipsCount: prevPlayer.winningSlipsCount + winningSlipsCount,
 			};
 		});
-
-		setOperator((prevOperator) => ({
-			...prevOperator,
-			balance: prevOperator.balance - totalAward,
-			loss: prevOperator.loss + totalAward,
-		}));
 	};
 
 	const startPlayerDraw = () => {
@@ -314,6 +351,28 @@ export const LottoProvider = ({ children }) => {
 		});
 	};
 
+	const exitGame = () => {
+		setPlayer({
+			name: '',
+			balance: 10000,
+			prize: 0,
+			gameSlips: [],
+			awardedSlips: [],
+			winningSlipsCount: 0,
+			winningNumbers: [],
+		});
+
+		setOperator({
+			name: '',
+			balance: 0,
+			prize: 0,
+			gameSlips: [],
+			awardedSlips: [],
+			winningSlipsCount: 0,
+			winningNumbers: [],
+		});
+	};
+
 	return (
 		<LottoContext.Provider
 			value={{
@@ -323,6 +382,8 @@ export const LottoProvider = ({ children }) => {
 				setOperator,
 				updatePlayerName,
 				updateOperatorName,
+				setPlayerState,
+				setOperatorState,
 				addPlayerSlip,
 				addOperatorSlip,
 				playerGame,
@@ -333,6 +394,7 @@ export const LottoProvider = ({ children }) => {
 				startPlayerDraw,
 				startOperatorDraw,
 				restartOperatorGame,
+				exitGame,
 			}}
 		>
 			{children}

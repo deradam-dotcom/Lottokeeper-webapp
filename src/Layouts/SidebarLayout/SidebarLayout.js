@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { Form } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
+import LocalStorageService from '../../Services/LocalStorageService';
 import './sidebar_layout.css';
 import ActionButton from '../../Components/Buttons/ActionButton';
 
 const SidebarLayout = ({ playerProps, operatorProps, children }) => {
-	console.log(playerProps);
 	return (
 		<React.Fragment>
 			<div className="sidebar-layout">
@@ -28,13 +29,23 @@ const PlayerSidebar = ({
 	balance,
 	onPlayGame,
 	onRestartGame,
+	onExitGame,
 	winningNumbers,
 	operatorWinningNumbers,
-	simulatePlayerDraw,
+	simulateDraw,
 	prize,
 	hasOperator,
 	winningSlipsCount,
 }) => {
+	const navigate = useNavigate();
+
+	const changeUser = () => {
+		// Clear player data from localStorage
+		onExitGame();
+		LocalStorageService.deleteAll();
+		// Navigate to the home page
+		navigate('/');
+	};
 	return (
 		<div className="user-sidebar">
 			<div className="data-card">
@@ -59,33 +70,40 @@ const PlayerSidebar = ({
 				</div>
 				<ActionButton title="Add Game Slip" handleClick={onPlayGame} />
 			</div>
-			{hasOperator ? (
-				<div className="numbers-container">
-					{operatorWinningNumbers &&
-						operatorWinningNumbers.map((number, index) => (
-							<span className="number" key={index}>
-								{number}
-							</span>
-						))}
-				</div>
-			) : (
-				<div className="numbers-container">
-					{winningNumbers &&
-						winningNumbers.map((number, index) => (
-							<span className="number" key={index}>
-								{number}
-							</span>
-						))}
-				</div>
-			)}
-			<div className="number-generator">
-				{!hasOperator && (
-					<ActionButton title="DRAW" handleClick={simulatePlayerDraw} />
+			<div>
+				{hasOperator ? (
+					<div className="numbers-container">
+						{operatorWinningNumbers &&
+							operatorWinningNumbers.map((number, index) => (
+								<span className="number" key={index}>
+									{number}
+								</span>
+							))}
+					</div>
+				) : (
+					<div className="numbers-container">
+						{winningNumbers &&
+							winningNumbers.map((number, index) => (
+								<span className="number" key={index}>
+									{number}
+								</span>
+							))}
+					</div>
 				)}
+				{!hasOperator && (
+					<div className="number-generator">
+						<ActionButton title="DRAW" handleClick={simulateDraw} />
+					</div>
+				)}
+				{hasOperator && (
+					<div>
+						<ActionButton title="RESTART" handleClick={onRestartGame} />
+					</div>
+				)}
+				<div className="mt-2">
+					<ActionButton title="CHANGE USER" handleClick={changeUser} />
+				</div>
 			</div>
-			{hasOperator && (
-				<ActionButton title="RESTART" handleClick={onRestartGame} />
-			)}
 		</div>
 	);
 };
@@ -101,7 +119,7 @@ const OperatorSidebar = ({
 	winningSlipsCount,
 }) => {
 	const [numberOfSections, setNumberOfSections] = useState(0);
-	console.log(loss, 'LOSS');
+
 	const handleSubmit = (event) => {
 		event.preventDefault();
 		onPlayGame(numberOfSections);

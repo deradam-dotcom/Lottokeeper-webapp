@@ -7,9 +7,9 @@
   background-repeat: no-repeat; /* Prevent the image from repeating */
   background-attachment: fixed; /* Fix the background image */
   background-size: cover; /* Cover the entire viewport without stretching */
-  overflow: hidden; /* Hide any overflow */
-  height: 100vh; /* Set the height to 100% of the viewport */
-  width: 100vw; /* Set the width to 100% of the viewport */
+  overflow: auto; /* Hide any overflow */
+  height:100vh; /* Set the height to 100% of the viewport */
+  width: 100%; /* Set the width to 100% of the viewport */
 }
 
 .center {
@@ -17,5 +17,4 @@
   margin:0;
   box-sizing: border-box;
 }
-
   

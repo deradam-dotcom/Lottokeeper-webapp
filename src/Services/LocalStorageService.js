@@ -1,21 +1,29 @@
 class LocalStorageService {
-	// Save data to local storage
-	save(key, value) {
-		const stringValue = JSON.stringify(value);
+	saveUserState(role, state) {
+		// Save user state to local storage with the key as the user role
+		const key = `${role.toLowerCase()}`;
+		const stringValue = JSON.stringify(state);
 		window.localStorage.setItem(key, stringValue);
 	}
 
-	// Get data from local storage
-	get(key) {
+	getUserState(role) {
+		// Get user state from local storage based on the user role
+		const key = `${role.toLowerCase()}`;
 		const item = window.localStorage.getItem(key);
 		return item ? JSON.parse(item) : null;
 	}
 
-	// Delete data from local storage
-	delete(key) {
+	deleteUserState(role) {
+		// Delete user state from local storage based on the user role
+		const key = `${role.toLowerCase()}`;
 		window.localStorage.removeItem(key);
+	}
+
+	deleteAll() {
+		// Delete all data from local storage
+		window.localStorage.clear();
 	}
 }
 
 const localStorageService = new LocalStorageService();
-export default localStorageService();
+export default localStorageService;

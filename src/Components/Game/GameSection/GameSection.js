@@ -12,42 +12,43 @@ const GameSection = ({ player, operator, simulateDraw }) => {
 		if (sortOrder === 'ASC') {
 			const sorted = player.awardedSlips
 				.slice()
-				.sort((a, b) => b.matches - a.matches);
+				.sort((a, b) => a.matches - b.matches);
 			setSortedSlips(sorted);
 			setSortOrder('DESC');
 		} else {
 			const sorted = player.awardedSlips
 				.slice()
-				.sort((a, b) => a.matches - b.matches);
+				.sort((a, b) => b.matches - a.matches);
 			setSortedSlips(sorted);
-			setSortOrder('DESC');
+			setSortOrder('ASC');
 		}
 	};
 
 	return (
 		<React.Fragment>
 			<div className="game-slips">
-				{player.gameSlips.map((slip, index) => (
-					<div key={index} className="game-slip">
-						{operator && (
-							<u>
-								<span className="user-slip-info">PLAYER SLIP</span>
-							</u>
-						)}
-						<div className="game-slip-numbers">
-							{Array.from({ length: 39 }).map((_, number) => (
-								<div
-									key={number}
-									className={`number-cell ${
-										slip.numbers.includes(number + 1) ? 'selected' : ''
-									}`}
-								>
-									{number + 1}
-								</div>
-							))}
+				{player.gameSlips &&
+					player.gameSlips.map((slip, index) => (
+						<div key={index} className="game-slip">
+							{operator && (
+								<u>
+									<span className="user-slip-info">PLAYER SLIP</span>
+								</u>
+							)}
+							<div className="game-slip-numbers">
+								{Array.from({ length: 39 }).map((_, number) => (
+									<div
+										key={number}
+										className={`number-cell ${
+											slip.numbers.includes(number + 1) ? 'selected' : ''
+										}`}
+									>
+										{number + 1}
+									</div>
+								))}
+							</div>
 						</div>
-					</div>
-				))}
+					))}
 				{flatOperator &&
 					flatOperator.map((slip, index) => (
 						<div key={index} className="game-slip">
@@ -69,7 +70,9 @@ const GameSection = ({ player, operator, simulateDraw }) => {
 						</div>
 					))}
 			</div>
-			{player.gameSlips.length > 0 && <div className="line"></div>}
+			{player.gameSlips && player.gameSlips.length > 0 && (
+				<div className="line"></div>
+			)}
 			<div className="game-slips">
 				{player &&
 					(sortedSlips.length !== 0 ? sortedSlips : player.awardedSlips).map(
