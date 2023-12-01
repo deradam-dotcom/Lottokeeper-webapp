@@ -9,7 +9,7 @@ export const LottoProvider = ({ children }) => {
 	const [player, setPlayer] = useState({
 		name: '',
 		balance: 10000,
-		prize: 0, // Starting balance
+		prize: 0,
 		gameSlips: [],
 		awardedSlips: [],
 		winningSlipsCount: 0,
@@ -19,15 +19,14 @@ export const LottoProvider = ({ children }) => {
 	const [operator, setOperator] = useState({
 		name: '',
 		balance: 0,
-		prize: 0, // Starting balance
+		prize: 0,
 		loss: 0,
 		gameSlips: [],
 		awardedSlips: [],
 		winningSlipsCount: 0,
 		winningNumbers: [],
 	});
-
-	// Add these set methods
+	// Add SET methods
 	const setPlayerState = (newPlayerState) => {
 		setPlayer({
 			name: newPlayerState.name ?? '',
@@ -52,7 +51,7 @@ export const LottoProvider = ({ children }) => {
 			winningNumbers: newOperatorState.winningNumbers ?? [],
 		});
 	};
-
+	// update user names
 	const updatePlayerName = (userName) => {
 		if (player.name === '') {
 			setPlayer((prevPlayer) => ({
@@ -74,7 +73,7 @@ export const LottoProvider = ({ children }) => {
 			alert('The Operator name has already setted');
 		}
 	};
-
+	// Generating the game slips for the users
 	const playerGame = () => {
 		if (player.balance >= 500) {
 			// Check if player has enough balance
@@ -107,7 +106,7 @@ export const LottoProvider = ({ children }) => {
 			};
 		});
 	};
-	// Function to add a game slip for a player
+	// Function to add a game slip for an operator
 	const addOperatorSlip = (slip) => {
 		setOperator((prevOperator) => {
 			return {
@@ -116,7 +115,7 @@ export const LottoProvider = ({ children }) => {
 			};
 		});
 	};
-
+	// Crediting awards to the operator
 	const awardOperatorCredits = (operator, winningNumbers) => {
 		let winningSlipsCount = 0;
 		// Initialize counters for each match category
@@ -152,11 +151,11 @@ export const LottoProvider = ({ children }) => {
 				isWinner: isWinner,
 			};
 		});
-		// Add only the new winning slips to the awardedSlips array in player state
+		// Add only the new winning slips to the awardedSlips array in operator state
 		const newWinningSlips = updatedSlips.filter(
 			(slip) => slip.isWinner && !operator.awardedSlips.includes(slip)
 		);
-		// Update player balance with the total award
+		// Update operator balance with the total award
 		setOperator((prevOperator) => {
 			// Filter out only the slips that haven't won
 			const newWinningSlipIds = newWinningSlips.map((slip) => slip.id);
@@ -178,7 +177,7 @@ export const LottoProvider = ({ children }) => {
 			};
 		});
 	};
-
+	// Crediting awards to the player
 	const awardPlayerCredits = (player, winningNumbers) => {
 		let winningSlipsCount = 0;
 		// Initialize counters for each match category
@@ -251,7 +250,7 @@ export const LottoProvider = ({ children }) => {
 			};
 		});
 	};
-
+	// Start DRAW as an individual Player
 	const startPlayerDraw = () => {
 		if (player.balance >= 300 && player.gameSlips.length > 0) {
 			const winningNumbers = generateWinningNumbers();
@@ -265,7 +264,7 @@ export const LottoProvider = ({ children }) => {
 			alert('Not enough balance to play or you have no GameSlip yet');
 		}
 	};
-
+	// Start DRAW as an Operator
 	const startOperatorDraw = () => {
 		if (player.gameSlips.length > 0 || operator.gameSlips.length > 0) {
 			const winningNumbers = generateWinningNumbers();
@@ -279,7 +278,6 @@ export const LottoProvider = ({ children }) => {
 			alert('No GameSlip has provided yet');
 		}
 	};
-
 	// Functions to generate a random game slips
 	const generateGameSlip = ({ isPlayer = true, isOperator = false } = {}) => {
 		const numbers = [];
@@ -298,7 +296,7 @@ export const LottoProvider = ({ children }) => {
 			isOperator: isOperator,
 		};
 	};
-
+	// Function to generate sections for the Operator
 	const generateGameSections = (
 		numberOfSections,
 		{ isPlayer = false } = {}
@@ -317,7 +315,7 @@ export const LottoProvider = ({ children }) => {
 	const generateUniqueId = () => {
 		return Date.now().toString(36) + Math.random().toString(36).substr(2);
 	};
-
+	//Function to generate random winning numbers
 	const generateWinningNumbers = () => {
 		const numbers = new Set();
 		while (numbers.size < 5) {
@@ -330,7 +328,7 @@ export const LottoProvider = ({ children }) => {
 		return slip.numbers.filter((number) => winningNumbers.includes(number))
 			.length;
 	};
-
+	// Function to restart a game as an Operator
 	const restartOperatorGame = () => {
 		setPlayer({
 			balance: 10000,
@@ -350,7 +348,7 @@ export const LottoProvider = ({ children }) => {
 			winningNumbers: [],
 		});
 	};
-
+	// Function to Exit from the current Game or change User
 	const exitGame = () => {
 		setPlayer({
 			name: '',

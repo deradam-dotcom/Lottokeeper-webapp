@@ -43,31 +43,19 @@
   border-radius: 10px;
 }
 
-.user-balance {
+.user-details{
   width:100%;
   display: flex;
   justify-content: space-between;
-}
-
-.user-total-hits{
-  width:100%;
-  display: flex;
   color:#fff;
-  justify-content: space-between;
 }
 
-.user-prize {
-  width:100%;
-  display: flex;
+.user-details.prize {
   color:rgb(74, 192, 74);
-  justify-content: space-between;
 }
 
-.user-loss {
-  width:100%;
-  display: flex;
+.user-details.loss {
   color:rgb(237, 120, 120);
-  justify-content: space-between;
 }
 
 span{

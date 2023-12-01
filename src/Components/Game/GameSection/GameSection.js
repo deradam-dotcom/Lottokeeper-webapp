@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import ActionButton from '../../Buttons/ActionButton';
 import './game_section.css';
 
-const GameSection = ({ player, operator, simulateDraw }) => {
+const GameSection = ({ player, operator }) => {
 	const [sortedSlips, setSortedSlips] = useState([]);
 	const [sortOrder, setSortOrder] = useState('NONE');
 

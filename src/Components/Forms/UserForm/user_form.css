@@ -37,6 +37,7 @@
 .custom-radio-button {
   display: flex;
 }
+
 .custom-radio-button input[type="radio"] {
   appearance: none;
   -webkit-appearance: none;
@@ -47,7 +48,6 @@
   overflow: hidden;
   clip: rect(0, 0, 0, 0);
 }
-
 /* Custom radio button styling */
 .custom-radio-button label {
   display: inline-block;
@@ -58,7 +58,6 @@
   margin-right: 20px;
   font-size: 16px;
 }
-
 /* Custom radio circle */
 .custom-radio-button label:before {
   content: '';
@@ -72,7 +71,6 @@
   border: 2px solid #052548;
   border-radius: 50%;
 }
-
 /* Inner circle to show when checked */
 .custom-radio-button input[type="radio"]:checked + label:after {
   content: '';
@@ -85,7 +83,6 @@
   background-color: #052548;
   border-radius: 50%;
 }
-
 /* Additional styling for radio buttons and other elements can be added similarly */
 .btn-primary{
 width:100% !important;

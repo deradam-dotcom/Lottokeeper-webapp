@@ -23,7 +23,7 @@ const SidebarLayout = ({ playerProps, operatorProps, children }) => {
 };
 
 export default SidebarLayout;
-// Sidebar.js
+
 const PlayerSidebar = ({
 	username,
 	balance,
@@ -52,17 +52,17 @@ const PlayerSidebar = ({
 				<h3>
 					<u>{username}</u>
 				</h3>
-				<div className="user-total-hits">
+				<div className="user-details">
 					<span>TOTAL SLIP HITS:</span>
 					<span>{winningSlipsCount} Pcs</span>
 				</div>
-				<div className="user-balance">
+				<div className="user-details">
 					<span>BALANCE:</span>
 					<span>
 						{balance} {balance === 0 ? 'Credit' : 'Credits'}
 					</span>
 				</div>
-				<div className="user-prize">
+				<div className="user-details prize">
 					<span>PRIZE:</span>
 					<span>
 						{prize} {prize === 0 ? 'Credit' : 'Credits'}
@@ -131,23 +131,23 @@ const OperatorSidebar = ({
 				<h3>
 					<u>{username}</u>
 				</h3>
-				<div className="user-total-hits">
+				<div className="user-details">
 					<span>TOTAL SLIP HITS:</span>
 					<span>{winningSlipsCount} Pcs</span>
 				</div>
-				<div className="user-balance">
+				<div className="user-details">
 					<span>BALANCE:</span>
 					<span>
 						{balance} {balance === 0 ? 'Credit' : 'Credits'}
 					</span>
 				</div>
-				<div className="user-prize">
+				<div className="user-details prize">
 					<span>PRIZE:</span>
 					<span>
 						{prize} {prize === 0 ? 'Credit' : 'Credits'}
 					</span>
 				</div>
-				<div className="user-loss">
+				<div className="user-details loss">
 					<span>LOSS:</span>
 					<span>
 						{loss} {loss === 0 ? 'Credit' : 'Credits'}

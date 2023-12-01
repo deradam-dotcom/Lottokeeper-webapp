@@ -16,8 +16,9 @@ const Operator = () => {
 		restartOperatorGame,
 		exitGame,
 	} = useLottoContext();
-
+	console.log(operator.loss);
 	useEffect(() => {
+		console.log(operator.loss, 'INCONTEXT');
 		const storedPlayerData = LocalStorageService.getUserState('player');
 		const storedOperatorData = LocalStorageService.getUserState('operator');
 		// Check if there is stored player data in localStorage
@@ -72,7 +73,6 @@ const Operator = () => {
 		onRestartGame: restartOperatorGame,
 		onExitGame: exitGame,
 	};
-	console.log(operator.loss);
 
 	return (
 		<React.Fragment>

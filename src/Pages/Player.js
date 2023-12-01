@@ -43,11 +43,9 @@ const Player = () => {
 
 	return (
 		<React.Fragment>
-			<div className="player-page">
-				<SidebarLayout playerProps={playerData}>
-					<GameSection player={player} />
-				</SidebarLayout>
-			</div>
+			<SidebarLayout playerProps={playerData}>
+				<GameSection player={player} />
+			</SidebarLayout>
 		</React.Fragment>
 	);
 };
