@@ -1,0 +1,18 @@
+# EditorConfig helps developers define and maintain consistent
+# coding styles between different editors and IDEs
+
+# Top-most EditorConfig file
+root = true
+
+# All files
+[*]
+indent_style = space
+indent_size = 2
+
+# Specify file types
+[*.{js,jsx,ts,tsx,html,xml,yml,yaml,json,md,markdown,php,css,scss,less,rb,python,java}]
+indent_size = 2
+
+# Ignore certain files
+[*.md]
+trim_trailing_whitespace = false
