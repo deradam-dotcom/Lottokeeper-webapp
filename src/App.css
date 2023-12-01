@@ -7,7 +7,7 @@
   background-repeat: no-repeat; /* Prevent the image from repeating */
   background-attachment: fixed; /* Fix the background image */
   background-size: cover; /* Cover the entire viewport without stretching */
-  overflow: auto; /* Hide any overflow */
+  overflow: hidden; 
   height:100vh; /* Set the height to 100% of the viewport */
   width: 100%; /* Set the width to 100% of the viewport */
 }
@@ -18,3 +18,8 @@
   box-sizing: border-box;
 }
   
+@media screen and (max-width: 1192px) {
+  .App {
+ overflow: auto;
+  }
+}  
