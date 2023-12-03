@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/lottokeeper-webapp/static/css/main.65c4bc10.css",
+    "main.js": "/lottokeeper-webapp/static/js/main.70407987.js",
+    "static/js/787.955b5ec8.chunk.js": "/lottokeeper-webapp/static/js/787.955b5ec8.chunk.js",
+    "static/media/lotto-keeper.jpeg": "/lottokeeper-webapp/static/media/lotto-keeper.6ebc18d2c534e6a8e47c.jpeg",
+    "index.html": "/lottokeeper-webapp/index.html",
+    "main.65c4bc10.css.map": "/lottokeeper-webapp/static/css/main.65c4bc10.css.map",
+    "main.70407987.js.map": "/lottokeeper-webapp/static/js/main.70407987.js.map",
+    "787.955b5ec8.chunk.js.map": "/lottokeeper-webapp/static/js/787.955b5ec8.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.65c4bc10.css",
+    "static/js/main.70407987.js"
+  ]
+}
